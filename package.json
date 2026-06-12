@@ -25,7 +25,9 @@
     "docker:db:migrate:dev": "docker-compose exec backend npx prisma migrate dev",
     "docker:db:reset": "docker-compose exec backend npx prisma migrate reset",
     "docker:db:studio": "docker-compose exec backend npx prisma studio",
-    "docker:ps": "docker-compose ps"
+    "docker:ps": "docker-compose ps",
+    "prepare": "husky install",
+    "lint-staged": "lint-staged"
   },
   "repository": {
     "type": "git",
@@ -57,12 +59,25 @@
     "typeorm": "^1.0.0",
     "typescript": "^6.0.3"
   },
+  "lint-staged": {
+    "*.{ts,tsx}": [
+      "eslint --fix",
+      "prettier --write"
+    ],
+    "*.{json,md}": [
+      "prettier --write"
+    ]
+  },
   "devDependencies": {
+    "@commitlint/cli": "^18.0.0",
+    "@commitlint/config-conventional": "^18.0.0",
     "@typescript-eslint/eslint-plugin": "^7.0.0",
     "@typescript-eslint/parser": "^7.0.0",
     "eslint": "^8.50.0",
     "eslint-config-prettier": "^9.0.0",
     "eslint-plugin-prettier": "^5.0.0",
+    "husky": "^9.0.0",
+    "lint-staged": "^15.0.0",
     "prettier": "^3.0.0",
     "prisma": "^7.8.0",
     "typescript": "^6.0.3"
