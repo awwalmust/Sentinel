@@ -11,5 +11,35 @@ model User {
   email     String   @unique
   createdAt DateTime @default(now())
 
+  notificationPreferences NotificationPreference[]
+  auditLogs               AuditLog[]
+
   @@map("users")
+}
+
+model NotificationPreference {
+  id              String   @id @default(cuid())
+  userId          String
+  discordEnabled  Boolean  @default(false)
+  telegramEnabled Boolean  @default(false)
+  emailEnabled    Boolean  @default(false)
+  alertTypes      String[]
+  createdAt       DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("notification_preferences")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String
+  action    String
+  actor     String
+  metadata  Json?
+  createdAt DateTime @default(now())
+
+  user User @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
 }
