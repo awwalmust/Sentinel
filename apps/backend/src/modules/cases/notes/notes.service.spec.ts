@@ -1,7 +1,6 @@
 import { Test, TestingModule } from '@nestjs/testing';
 import { NotFoundException, ForbiddenException } from '@nestjs/common';
 import { NotesService } from './notes.service';
-import { PrismaClient } from '@prisma/client';
 
 // ---------------------------------------------------------------------------
 // Mock PrismaClient
@@ -93,7 +92,7 @@ describe('NotesService', () => {
       // Prisma create is called twice: audit entry + note record
       mockAuditLog.create
         .mockResolvedValueOnce({ id: 'audit-1' }) // audit entry
-        .mockResolvedValueOnce(noteRecord);        // note record
+        .mockResolvedValueOnce(noteRecord); // note record
 
       // getNoteAuditHistory will call findMany
       mockAuditLog.findMany.mockResolvedValue([auditRecord]);
@@ -230,9 +229,9 @@ describe('NotesService', () => {
     it('should throw ForbiddenException when actor is not the author', async () => {
       mockAuditLog.findUnique.mockResolvedValue(noteRecord);
 
-      await expect(
-        service.deleteNote(NOTE_ID, 'user-999', 'Eve'),
-      ).rejects.toThrow(ForbiddenException);
+      await expect(service.deleteNote(NOTE_ID, 'user-999', 'Eve')).rejects.toThrow(
+        ForbiddenException,
+      );
     });
   });
 

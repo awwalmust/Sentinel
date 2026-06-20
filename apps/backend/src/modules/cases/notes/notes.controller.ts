@@ -29,10 +29,7 @@ export class NotesController {
    */
   @Post()
   @HttpCode(HttpStatus.CREATED)
-  async createNote(
-    @Param('caseId') caseId: string,
-    @Body() dto: Omit<CreateNoteDto, 'caseId'>,
-  ) {
+  async createNote(@Param('caseId') caseId: string, @Body() dto: Omit<CreateNoteDto, 'caseId'>) {
     return this.notesService.createNote({ ...dto, caseId });
   }
 
@@ -50,10 +47,7 @@ export class NotesController {
    * Retrieve a single note by ID.
    */
   @Get(':noteId')
-  async getNoteById(
-    @Param('caseId') _caseId: string,
-    @Param('noteId') noteId: string,
-  ) {
+  async getNoteById(@Param('caseId') _caseId: string, @Param('noteId') noteId: string) {
     return this.notesService.getNoteById(noteId);
   }
 
@@ -91,10 +85,7 @@ export class NotesController {
    * Retrieve the complete audit history for a single note.
    */
   @Get(':noteId/history')
-  async getNoteAuditHistory(
-    @Param('caseId') _caseId: string,
-    @Param('noteId') noteId: string,
-  ) {
+  async getNoteAuditHistory(@Param('caseId') _caseId: string, @Param('noteId') noteId: string) {
     return this.notesService.getNoteAuditHistory(noteId);
   }
 }

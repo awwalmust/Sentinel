@@ -87,7 +87,16 @@ export class NotesService {
     });
 
     return this.formatNote(noteRecord, [
-      this.buildAuditEntry(auditId, noteId, 'created', dto.authorId, dto.authorName, null, newValues, now),
+      this.buildAuditEntry(
+        auditId,
+        noteId,
+        'created',
+        dto.authorId,
+        dto.authorName,
+        null,
+        newValues,
+        now,
+      ),
     ]);
   }
 
