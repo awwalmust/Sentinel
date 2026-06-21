@@ -20,7 +20,7 @@ export class BehavioralAnalysisService {
     );
 
     const totalVolume = transactions.reduce((sum, tx) => sum + tx.amount, 0);
-    const counterparties = new Set(transactions.map(tx => tx.counterparty));
+    const counterparties = new Set(transactions.map((tx) => tx.counterparty));
 
     return {
       walletAddress: transactions[0].walletAddress,
@@ -42,8 +42,8 @@ export class BehavioralAnalysisService {
         ? transactions.reduce((s, tx) => s + tx.amount, 0) / transactions.length
         : 0;
 
-    const counterparties = [...new Set(transactions.map(tx => tx.counterparty))];
-    const assets = [...new Set(transactions.map(tx => tx.asset))];
+    const counterparties = [...new Set(transactions.map((tx) => tx.counterparty))];
+    const assets = [...new Set(transactions.map((tx) => tx.asset))];
 
     return {
       walletAddress: transactions[0]?.walletAddress ?? '',
@@ -55,20 +55,17 @@ export class BehavioralAnalysisService {
   }
 
   /** Detect anomalies in recent transactions compared to the baseline. */
-  detectAnomalies(
-    recentTxs: WalletTransaction[],
-    baseline: BehaviorBaseline,
-  ): WalletAnomaly[] {
+  detectAnomalies(recentTxs: WalletTransaction[], baseline: BehaviorBaseline): WalletAnomaly[] {
     const anomalies: WalletAnomaly[] = [];
     const now = new Date().toISOString();
 
-    // Volume spike: any single tx > 3× average
+    // Volume spike: any single tx > 3x average
     for (const tx of recentTxs) {
       if (baseline.avgTransactionAmount > 0 && tx.amount > baseline.avgTransactionAmount * 3) {
         anomalies.push({
           walletAddress: tx.walletAddress,
           type: 'volume_spike',
-          description: `Transaction ${tx.txHash} amount ${tx.amount} exceeds 3× baseline average`,
+          description: `Transaction ${tx.txHash} amount ${tx.amount} exceeds 3x baseline average`,
           detectedAt: now,
         });
       }
@@ -114,6 +111,6 @@ export class BehavioralAnalysisService {
   }
 
   private uniqueDays(txs: WalletTransaction[]): number {
-    return new Set(txs.map(tx => tx.timestamp.slice(0, 10))).size;
+    return new Set(txs.map((tx) => tx.timestamp.slice(0, 10))).size;
   }
 }
