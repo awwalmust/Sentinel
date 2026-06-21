@@ -6,19 +6,12 @@ module.exports = {
     sourceType: 'module',
   },
   plugins: ['@typescript-eslint/eslint-plugin'],
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'plugin:prettier/recommended',
-  ],
+  extends: ['plugin:@typescript-eslint/recommended', 'plugin:prettier/recommended'],
   root: true,
   env: { node: true },
   // Exclude the Next.js dashboard app entirely — it uses its own tsconfig/eslint
   // and its files are not included in the root tsconfig project references.
-  ignorePatterns: [
-    '.eslintrc.js',
-    'dist/**',
-    'apps/dashboard/**',
-  ],
+  ignorePatterns: ['.eslintrc.js', 'dist/**', 'apps/dashboard/**'],
   rules: {
     '@typescript-eslint/interface-name-prefix': 'off',
     '@typescript-eslint/explicit-function-return-type': 'off',
@@ -29,7 +22,14 @@ module.exports = {
   overrides: [
     {
       // Files outside all tsconfigs — lint without type-aware rules
-      files: ['observability/**/*.ts', 'prisma/**/*.ts', 'src/**/*.ts', 'apps/web/**/*.ts', 'apps/web/**/*.tsx', 'env.d.ts'],
+      files: [
+        'observability/**/*.ts',
+        'prisma/**/*.ts',
+        'src/**/*.ts',
+        'apps/web/**/*.ts',
+        'apps/web/**/*.tsx',
+        'env.d.ts',
+      ],
       parserOptions: {
         project: null,
       },
