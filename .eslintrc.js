@@ -1,7 +1,7 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
   parserOptions: {
-    project: ['tsconfig.json', 'apps/dashboard/tsconfig.json'],
+    project: ['tsconfig.json', 'apps/dashboard/tsconfig.json', 'apps/web/tsconfig.json'],
     tsconfigRootDir: __dirname,
     sourceType: 'module',
   },
@@ -23,7 +23,7 @@ module.exports = {
   overrides: [
     {
       // Files outside all tsconfigs — lint without type-aware rules
-      files: ['observability/**/*.ts', 'prisma/**/*.ts', 'src/**/*.ts', 'env.d.ts'],
+      files: ['observability/**/*.ts', 'prisma/**/*.ts', 'src/**/*.ts', 'env.d.ts', 'apps/web/app/**/*'],
       parserOptions: {
         project: null,
       },

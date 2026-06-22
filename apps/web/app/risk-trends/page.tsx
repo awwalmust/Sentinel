@@ -2,11 +2,13 @@
 
 import React, { useState } from 'react';
 
+type HistoricalPoint = { date: string; riskScore: number };
+
 export default function RiskTrendsDashboard() {
-  const [timeFilter, setTimeFilter] = useState('30d');
+  const [timeFilter, setTimeFilter] = useState<string>('30d');
 
   // Mock data for charts
-  const historicalData = [
+  const historicalData: HistoricalPoint[] = [
     { date: '2023-01-01', riskScore: 85 },
     { date: '2023-02-01', riskScore: 70 },
     { date: '2023-03-01', riskScore: 65 },
@@ -57,7 +59,7 @@ export default function RiskTrendsDashboard() {
         >
           <h2 style={{ fontSize: '18px', marginBottom: '20px' }}>Historical Risk Chart</h2>
           <div style={{ height: '200px', display: 'flex', alignItems: 'flex-end', gap: '12px' }}>
-            {historicalData.map((data, i) => (
+            {historicalData.map((data: HistoricalPoint, i: number) => (
               <div
                 key={i}
                 style={{

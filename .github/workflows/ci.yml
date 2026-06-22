@@ -72,8 +72,9 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: build-${{ matrix.node-version }}
-          path: dist/
-          retention-days: 7
+          # backend tsc emits to apps/backend/dist
+          path: apps/backend/dist/
+          retention-days: 14
 
   test:
     name: Tests
@@ -156,7 +157,7 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: build-${{ matrix.node-version }}
-          path: dist
+          path: apps/backend/dist
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
